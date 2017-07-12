@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"golang.org/x/sys/windows/svc"
-	"golang.org/x/sys/windows/svc/debug"
 )
 
 const (
@@ -82,7 +81,8 @@ func Run(server *Server) error {
 		return err
 	}
 	if isInteractive {
-		run = debug.Run
+		server.Start()
+		return nil
 	}
 	return run(serviceName, &winServiceWrapper{server})
 }
